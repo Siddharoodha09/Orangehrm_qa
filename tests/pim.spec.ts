@@ -44,9 +44,3 @@ test.describe("Orange HRM demo automation testing", () => {
         await expect(pim.getempInfo()).toBeVisible();
     })
 })
-
-await
- 
-
-
- 
