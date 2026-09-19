@@ -1,18 +1,35 @@
 pipeline {
-  agent any
-
-  stages {
-    stage('Install dependencies') {
-      steps {
-        bat 'npm install'
-        bat 'npx.cmd playwright install'
-      }
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                bat 'npm install'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                bat 'npx playwright test'
+            }
+        }
+         stage('Generate Allure Report') {
+            steps {
+                bat 'npx allure generate allure-results --clean -o allure-report'
+            }
     }
-
-    stage('Run Playwright tests') {
-      steps {
-        bat 'npx.cmd playwright test'
-      }
-    }
-  }
 }
+ 
+// 1. Connect to GitHub
+//         ↓
+// 2. Clone/checkout your project
+//         ↓
+// 3. npm install
+//         ↓
+// 4. npx playwright test
+//         ↓
+// 5. Generate test results
+ 
