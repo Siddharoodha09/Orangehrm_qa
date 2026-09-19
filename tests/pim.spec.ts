@@ -1,7 +1,7 @@
 
 import { LoginData } from '../test-data/loginData';
-// import { test, expect } from '@playwright/test'
-import { test, expect } from '../fixtures/base-fixture'
+import { test, expect } from '@playwright/test'
+
 import { PimPage } from '../pages/PIM';
 // import { LoginPage } from '../pages/LoginPage';
 test.describe("Orange HRM demo automation testing", () => {
@@ -13,8 +13,20 @@ test.describe("Orange HRM demo automation testing", () => {
         await loginPage.open();
         // Login to OrangeHRM
         await loginPage.login(username, password);
-        //dashboard displayed
+        // dashboard displayed
     })
+
+    test('View dashboard after login', async ({ page, loginPage }) => {
+        const username = LoginData.username;
+        const password = LoginData.password;
+
+        await loginPage.open();
+        await loginPage.login(username, password);
+
+        await expect(page).toHaveURL(/dashboard/);
+        await expect(page.getByRole('heading', { name: /dashboard/i })).toBeVisible();
+    });
+
     test('Pim open', async ({ page }) => {
         //PIM
         const pim = new PimPage(page);
@@ -33,7 +45,7 @@ test.describe("Orange HRM demo automation testing", () => {
     })
 })
 
-
+await
  
 
 
