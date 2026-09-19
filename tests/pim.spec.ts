@@ -3,26 +3,19 @@ import { LoginData } from '../test-data/loginData';
 import { test, expect } from '@playwright/test'
 
 import { PimPage } from '../pages/PIM';
-// import { LoginPage } from '../pages/LoginPage';
+import { LoginPage } from '../pages/LoginPage';
+
 test.describe("Orange HRM demo automation testing", () => {
-    test.beforeEach(async ({ loginPage }) => {
-        // Custom fixter
+    test.beforeEach(async ({ page }) => {
         const username = LoginData.username;
         const password = LoginData.password;
-        // Open OrangeHRM login page
+        const loginPage = new LoginPage(page);
+
         await loginPage.open();
-        // Login to OrangeHRM
         await loginPage.login(username, password);
-        // dashboard displayed
     })
 
-    test('View dashboard after login', async ({ page, loginPage }) => {
-        const username = LoginData.username;
-        const password = LoginData.password;
-
-        await loginPage.open();
-        await loginPage.login(username, password);
-
+    test('View dashboard after login', async ({ page }) => {
         await expect(page).toHaveURL(/dashboard/);
         await expect(page.getByRole('heading', { name: /dashboard/i })).toBeVisible();
     });
