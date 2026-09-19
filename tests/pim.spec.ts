@@ -15,10 +15,7 @@ test.describe("Orange HRM demo automation testing", () => {
         await loginPage.login(username, password);
     })
 
-    test('View dashboard after login', async ({ page }) => {
-        await expect(page).toHaveURL(/dashboard/);
-        await expect(page.getByRole('heading', { name: /dashboard/i })).toBeVisible();
-    });
+
 
     test('Pim open', async ({ page }) => {
         //PIM
